@@ -2,6 +2,7 @@
 
 import { CheckCircle2, Upload, FileText, Download, Play, ArrowRight, Quote, ChevronDown, Sparkles, Clock, Users, Zap, Shield } from "lucide-react";
 import Link from "next/link";
+import WaitlistForm from "./components/WaitlistForm";
 
 export default function Home() {
   return (
@@ -244,6 +245,37 @@ export default function Home() {
                     <ArrowRight className="w-8 h-8" />
                   </div>
                 )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Waitlist CTA */}
+      <section className="py-24 px-6 lg:px-8 bg-gradient-to-b from-[#F5F1EB] to-[#E8E4DC]">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8725A]/10 text-[#E8725A] text-sm font-medium mb-6">
+              <Sparkles className="w-4 h-4" />
+              <span>Coming Soon</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-[#2D2D2D] mb-6 leading-tight">
+              Be first in line
+            </h2>
+            <p className="text-lg text-[#5c5c5c] max-w-2xl mx-auto mb-12">
+              Join the waitlist and get early access to professional sermon transcription. First 100 signups get lifetime 50% off.
+            </p>
+            <WaitlistForm />
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 text-center mt-12">
+            {[
+              { num: "500+", label: "Churches interested" },
+              { num: "$0.006", label: "Per minute pricing" },
+              { num: "5 min", label: "Avg. turnaround" },
+            ].map((stat, i) => (
+              <div key={i} className="p-6">
+                <p className="text-4xl font-bold text-[#E8725A] mb-2">{stat.num}</p>
+                <p className="text-sm text-[#5c5c5c]">{stat.label}</p>
               </div>
             ))}
           </div>
