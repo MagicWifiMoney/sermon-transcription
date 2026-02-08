@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
       // Note: This requires the ElevenLabs API key and SDK setup
       // For now, we'll fall back to Whisper with a note
       result = await transcribeWithWhisper(tempPath);
-      result.note = 'Premium tier (ElevenLabs) coming soon. Used Whisper for this transcription.';
+      result = { ...result, note: 'Premium tier (ElevenLabs) coming soon. Used Whisper for this transcription.' };
     } else {
       // Standard: OpenAI Whisper
       result = await transcribeWithWhisper(tempPath);
