@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID || '8906550e-cffc-414a-aefe-0fc65eb24752'; // General audience
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,9 +15,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send confirmation email to user
+    // 1. Add contact to Resend Audience
+    try {
+      await resend.contacts.create({
+        audienceId: AUDIENCE_ID,
+        email: email,
+        firstName: name || undefined,
+        unsubscribed: false,
+      });
+    } catch (e) {
+      // Ignore duplicate contact errors
+      console.log('Contact may already exist:', e);
+    }
+
+    // 2. Send confirmation email to user
     await resend.emails.send({
-      from: 'Sermon Transcription <hello@sermon-transcription.com>',
+      from: 'Sermon Transcription <hello@dogbathroomart.com>',
       to: email,
       subject: "You're on the waitlist! 🎉",
       html: `
@@ -31,6 +45,10 @@ export async function POST(request: NextRequest) {
             <p style="color: #5c5c5c; line-height: 1.6; margin: 0 0 16px 0;">
               ${name ? `Hi ${name},` : 'Hi there,'} thanks for signing up! You're on the list for early access to professional sermon transcription.
             </p>
+            <div style="background: #E8725A; color: white; padding: 16px; border-radius: 12px; margin: 20px 0; text-align: center;">
+              <p style="margin: 0; font-weight: bold; font-size: 18px;">🎁 Your Waitlist Bonus</p>
+              <p style="margin: 8px 0 0 0; font-size: 16px;">Get <strong>30 minutes FREE transcription</strong> when we launch!</p>
+            </div>
             <p style="color: #5c5c5c; line-height: 1.6; margin: 0;">
               We'll let you know as soon as we launch. In the meantime, here's what you can expect:
             </p>
@@ -62,7 +80,7 @@ export async function POST(request: NextRequest) {
 
     // Send notification to Jake
     await resend.emails.send({
-      from: 'Sermon Transcription <hello@sermon-transcription.com>',
+      from: 'Sermon Transcription <hello@dogbathroomart.com>',
       to: 'jake.giebel@gmail.com',
       subject: '🎉 New waitlist signup',
       html: `
