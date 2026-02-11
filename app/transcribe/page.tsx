@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { Upload, FileAudio, X, Loader2, Download, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Upload, FileAudio, X, Loader2, Download, CheckCircle2, AlertCircle, Clock, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+
+const ACCEPTED_FORMATS = 'audio/mpeg,audio/mp3,audio/wav,audio/wave,audio/m4a,audio/mp4,video/mp4,audio/ogg,audio/flac,audio/webm';
 
 export default function TranscribePage() {
   const [file, setFile] = useState<File | null>(null);
@@ -12,6 +14,7 @@ export default function TranscribePage() {
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
+  const [showUpgradePrompt, setShowUpgradePrompt] = useState(false);
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -29,15 +32,41 @@ export default function TranscribePage() {
     setDragActive(false);
     
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      setFile(e.dataTransfer.files[0]);
-      setError(null);
+      const droppedFile = e.dataTransfer.files[0];
+      validateAndSetFile(droppedFile);
     }
   }, []);
 
+  const validateAndSetFile = (selectedFile: File) => {
+    // Check file type
+    const validTypes = ['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/wave', 'audio/m4a', 'audio/mp4', 'video/mp4', 'audio/ogg', 'audio/flac', 'audio/webm'];
+    const fileType = selectedFile.type.toLowerCase();
+    const fileName = selectedFile.name.toLowerCase();
+    
+    const isValidType = validTypes.some(type => fileType.includes(type.split('/')[1])) ||
+                       fileName.endsWith('.mp3') || fileName.endsWith('.wav') || 
+                       fileName.endsWith('.m4a') || fileName.endsWith('.mp4');
+
+    if (!isValidType) {
+      setError('Please upload MP3, WAV, M4A, or MP4 files only');
+      return;
+    }
+
+    // Check file size (25MB limit)
+    const maxSize = 25 * 1024 * 1024;
+    if (selectedFile.size > maxSize) {
+      setError('File too large. Maximum size is 25MB. Please compress your audio.');
+      return;
+    }
+
+    setFile(selectedFile);
+    setError(null);
+    setShowUpgradePrompt(false);
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-      setError(null);
+      validateAndSetFile(e.target.files[0]);
     }
   };
 
@@ -48,29 +77,41 @@ export default function TranscribePage() {
     }
 
     setProcessing(true);
-    setProgress(0);
+    setProgress(10);
     setError(null);
     setResult(null);
+    setShowUpgradePrompt(false);
 
     const formData = new FormData();
     formData.append('file', file);
     formData.append('tier', tier);
 
     try {
+      setProgress(30);
+      
       const response = await fetch('/api/transcribe', {
         method: 'POST',
         body: formData,
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error('Transcription failed');
+        throw new Error(data.message || data.error || 'Transcription failed');
       }
 
-      const data = await response.json();
+      setProgress(90);
       setResult(data);
       setProgress(100);
+
+      // Check if exceeds free tier
+      if (data.pricing?.exceedsFree) {
+        setShowUpgradePrompt(true);
+      }
+
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : 'An error occurred during transcription');
+      console.error('Transcription error:', err);
     } finally {
       setProcessing(false);
     }
@@ -97,7 +138,8 @@ export default function TranscribePage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `transcript.${extension}`;
+    const fileName = file?.name.replace(/\.[^/.]+$/, '') || 'transcript';
+    a.download = `${fileName}.${extension}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -133,6 +175,9 @@ export default function TranscribePage() {
             </h1>
             <p className="text-lg text-[#5c5c5c]">
               Upload your audio or video file and get a perfect transcript in minutes
+            </p>
+            <p className="text-sm text-[#E8725A] mt-2 font-medium">
+              🎁 First 5 minutes free — no credit card required
             </p>
           </div>
 
@@ -220,7 +265,7 @@ export default function TranscribePage() {
                   type="file"
                   id="file-upload"
                   className="hidden"
-                  accept="audio/*,video/*"
+                  accept={ACCEPTED_FORMATS}
                   onChange={handleFileChange}
                 />
                 <label
@@ -230,7 +275,7 @@ export default function TranscribePage() {
                   Select File
                 </label>
                 <p className="text-sm text-[#5c5c5c] mt-4">
-                  Supports MP3, MP4, WAV, M4A, and more
+                  Supports MP3, MP4, WAV, M4A (max 25MB)
                 </p>
               </div>
             ) : (
@@ -245,12 +290,17 @@ export default function TranscribePage() {
                       {(file.size / 1024 / 1024).toFixed(2)} MB
                     </p>
                   </div>
-                  <button
-                    onClick={() => setFile(null)}
-                    className="w-8 h-8 rounded-full hover:bg-[#2D2D2D]/5 flex items-center justify-center transition-colors"
-                  >
-                    <X className="w-5 h-5 text-[#5c5c5c]" />
-                  </button>
+                  {!processing && !result && (
+                    <button
+                      onClick={() => {
+                        setFile(null);
+                        setError(null);
+                      }}
+                      className="w-8 h-8 rounded-full hover:bg-[#2D2D2D]/5 flex items-center justify-center transition-colors"
+                    >
+                      <X className="w-5 h-5 text-[#5c5c5c]" />
+                    </button>
+                  )}
                 </div>
 
                 {!processing && !result && (
@@ -297,16 +347,52 @@ export default function TranscribePage() {
             </div>
           )}
 
+          {/* Upgrade Prompt (for files > 5 minutes) */}
+          {showUpgradePrompt && (
+            <div className="mt-8 p-8 rounded-3xl bg-gradient-to-br from-[#E8725A]/10 to-[#E8725A]/5 border-2 border-[#E8725A]/30">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-full bg-[#E8725A] flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="w-6 h-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-[#2D2D2D] mb-2">
+                    Your sermon is longer than 5 minutes
+                  </h3>
+                  <p className="text-[#5c5c5c] mb-4">
+                    The first 5 minutes were transcribed for free! To process the full {result?.pricing?.durationFormatted || ''} sermon, 
+                    upgrade to a paid plan starting at just $0.006/minute.
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    <Link 
+                      href="/#pricing" 
+                      className="px-6 py-3 bg-[#E8725A] hover:bg-[#d4654f] text-white rounded-full font-medium transition-all"
+                    >
+                      View Pricing
+                    </Link>
+                    <button 
+                      onClick={() => setShowUpgradePrompt(false)}
+                      className="px-6 py-3 border-2 border-[#2D2D2D]/20 hover:border-[#2D2D2D]/40 text-[#2D2D2D] rounded-full font-medium transition-all"
+                    >
+                      Maybe Later
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Result State */}
           {result && (
             <div className="mt-8 space-y-6">
               <div className="p-8 rounded-3xl bg-white border border-[#E8E4DC]">
                 <div className="flex items-center gap-3 mb-6 pb-6 border-b border-[#E8E4DC]">
                   <CheckCircle2 className="w-6 h-6 text-green-600" />
-                  <div>
+                  <div className="flex-1">
                     <h3 className="font-bold text-[#2D2D2D]">Transcription Complete!</h3>
-                    <p className="text-sm text-[#5c5c5c]">
-                      {result.duration ? `${Math.floor(result.duration / 60)}:${String(Math.floor(result.duration % 60)).padStart(2, '0')}` : 'Ready to download'}
+                    <p className="text-sm text-[#5c5c5c] flex items-center gap-2">
+                      <Clock className="w-4 h-4" />
+                      Duration: {result.pricing?.durationFormatted || 'N/A'}
+                      {result.language && ` • Language: ${result.language.toUpperCase()}`}
                     </p>
                   </div>
                 </div>
@@ -318,7 +404,7 @@ export default function TranscribePage() {
                     </label>
                     <div className="p-4 rounded-xl bg-[#F5F1EB] max-h-64 overflow-y-auto">
                       <p className="text-sm text-[#2D2D2D] leading-relaxed whitespace-pre-wrap">
-                        {result.text?.substring(0, 500)}...
+                        {result.text?.substring(0, 1000)}{result.text?.length > 1000 ? '...' : ''}
                       </p>
                     </div>
                   </div>
@@ -353,6 +439,7 @@ export default function TranscribePage() {
                     setFile(null);
                     setResult(null);
                     setError(null);
+                    setShowUpgradePrompt(false);
                   }}
                   className="w-full mt-4 py-3 text-[#5c5c5c] hover:text-[#2D2D2D] font-medium transition-colors"
                 >
