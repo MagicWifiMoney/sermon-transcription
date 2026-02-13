@@ -286,68 +286,137 @@ export default function Home() {
       {/* Pricing Section */}
       <section id="pricing" className="py-24 bg-[#2D2D2D] px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <span className="inline-block px-4 py-2 rounded-full bg-[#E8725A]/20 text-[#E8725A] text-sm font-medium mb-4">
               Pricing
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Simple, transparent pricing
+              Church-friendly pricing. <span className="text-[#E8725A]">250× cheaper</span> than Rev.com.
             </h2>
-            <p className="text-lg text-white/60 max-w-xl mx-auto">
-              Pay as you go. No subscriptions. No surprises.
+            <p className="text-lg text-white/60 max-w-2xl mx-auto">
+              Professional transcription shouldn't cost ministry budget. Pay as you go, no subscriptions.
             </p>
+          </div>
+
+          {/* Comparison Bar */}
+          <div className="max-w-3xl mx-auto mb-12 p-6 rounded-2xl bg-white/5 border border-white/10">
+            <div className="grid md:grid-cols-3 gap-6 text-center">
+              <div>
+                <p className="text-white/50 text-sm mb-1">Rev.com (human)</p>
+                <p className="text-2xl font-bold text-white/30 line-through">$1.50/min</p>
+              </div>
+              <div>
+                <p className="text-white/50 text-sm mb-1">Otter.ai (AI)</p>
+                <p className="text-2xl font-bold text-white/30 line-through">$0.25/min</p>
+              </div>
+              <div className="bg-[#E8725A]/20 rounded-xl py-4 -my-4">
+                <p className="text-[#E8725A] text-sm mb-1 font-semibold">Sermon Transcription</p>
+                <p className="text-3xl font-bold text-white">$0.006/min</p>
+                <p className="text-xs text-white/70 mt-1">Save $1.49 per minute</p>
+              </div>
+            </div>
+            <div className="mt-6 text-center">
+              <p className="text-white text-sm">
+                <strong className="text-[#E8725A]">Quick math:</strong> A 45-min sermon costs <span className="line-through text-white/40">$67.50</span> with Rev → <strong className="text-white">$0.27</strong> with us. <span className="text-[#E8725A] font-semibold">Save $67.23</span> 💰
+              </p>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* Standard */}
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10">
-              <h3 className="text-xl font-bold text-white mb-1">Standard</h3>
-              <p className="text-white/50 text-sm mb-6">OpenAI Whisper</p>
-              <div className="mb-8">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-white">Standard</h3>
+                <span className="px-3 py-1 rounded-full bg-white/10 text-white/60 text-xs font-medium">Most Popular</span>
+              </div>
+              <p className="text-white/50 text-sm mb-6">OpenAI Whisper — Perfect for most churches</p>
+              <div className="mb-2">
                 <span className="text-5xl font-bold text-white">$0.006</span>
                 <span className="text-white/50">/minute</span>
               </div>
+              <p className="text-[#E8725A] text-sm font-semibold mb-8">
+                = $0.27 for 45-min sermon
+              </p>
               <ul className="space-y-4 mb-8">
-                {["99% accuracy", "90+ languages", "Timestamps included", "TXT, SRT, VTT formats", "Fast processing"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-white/70 text-sm">
-                    <CheckCircle2 className="w-5 h-5 text-[#E8725A] flex-shrink-0" />
-                    {item}
+                {[
+                  "99% accuracy on clear audio",
+                  "90+ languages supported",
+                  "Timestamps included",
+                  "TXT, SRT, VTT formats",
+                  "Fast processing (3-5 min)",
+                  "Perfect for sermon notes, blog posts, captions"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-white/70 text-sm">
+                    <CheckCircle2 className="w-5 h-5 text-[#E8725A] flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
-              <Link href="/transcribe" className="w-full py-3 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors font-medium block text-center">
+              <Link href="/transcribe" className="w-full py-3 rounded-full border-2 border-white/30 text-white hover:bg-white/10 transition-all font-medium block text-center">
                 Start Transcribing
               </Link>
             </div>
 
             {/* Premium - Featured */}
             <div className="p-8 rounded-3xl bg-[#E8725A] relative scale-105 shadow-2xl shadow-[#E8725A]/30">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-white text-[#E8725A] text-xs font-bold rounded-full uppercase tracking-wider">
-                Best Quality
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-white text-[#E8725A] text-xs font-bold rounded-full uppercase tracking-wider shadow-lg">
+                Multi-Speaker Sermons
               </div>
-              <h3 className="text-xl font-bold text-white mb-1">Premium</h3>
-              <p className="text-white/70 text-sm mb-6">ElevenLabs Audio Intelligence</p>
-              <div className="mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-white">Premium</h3>
+              </div>
+              <p className="text-white/90 text-sm mb-6">ElevenLabs — Panel discussions, interviews, Q&A sessions</p>
+              <div className="mb-2">
                 <span className="text-5xl font-bold text-white">$0.02</span>
                 <span className="text-white/70">/minute</span>
               </div>
+              <p className="text-white/90 text-sm font-semibold mb-8">
+                = $0.90 for 45-min multi-speaker sermon
+              </p>
               <ul className="space-y-4 mb-8">
-                {["99.5% accuracy", "Speaker diarization (up to 32)", "Word-level timestamps", "Entity detection", "All Standard features"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-white text-sm">
-                    <CheckCircle2 className="w-5 h-5 text-white flex-shrink-0" />
-                    {item}
+                {[
+                  "99.5% accuracy (better with background noise)",
+                  "Speaker diarization (identifies up to 32 speakers)",
+                  "Word-level timestamps",
+                  "Entity detection (names, places)",
+                  "All Standard features included",
+                  "Perfect for panel discussions, Q&A, interviews"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-white text-sm">
+                    <CheckCircle2 className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
-              <Link href="/transcribe?tier=premium" className="w-full py-3 rounded-full bg-white text-[#E8725A] hover:bg-white/90 transition-colors font-bold block text-center">
+              <Link href="/transcribe?tier=premium" className="w-full py-3 rounded-full bg-white text-[#E8725A] hover:bg-white/90 transition-all font-bold block text-center shadow-lg">
                 Try Premium
               </Link>
             </div>
           </div>
 
-          <p className="text-center text-white/50 mt-10">
-            🎁 <span className="text-white">First 10 minutes free</span> — no credit card required
-          </p>
+          {/* Trust + Free Trial */}
+          <div className="max-w-4xl mx-auto mt-12 text-center space-y-6">
+            <p className="text-white text-lg">
+              🎁 <span className="font-semibold">First 10 minutes free</span> — no credit card required
+            </p>
+            <div className="flex flex-wrap justify-center gap-8 text-white/50 text-sm">
+              <div className="flex items-center gap-2">
+                <Shield className="w-4 h-4 text-[#E8725A]" />
+                <span>Secure payment processing</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#E8725A]" />
+                <span>No subscriptions, cancel anytime</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-[#E8725A]" />
+                <span>Average 3-5 min turnaround</span>
+              </div>
+            </div>
+            <p className="text-white/40 text-xs max-w-2xl mx-auto pt-4">
+              Used by churches, ministries, and pastors across North America. All transcripts are processed securely and never shared.
+            </p>
+          </div>
         </div>
       </section>
 
