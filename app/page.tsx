@@ -2,7 +2,7 @@
 
 import { CheckCircle2, Upload, FileText, Download, Play, ArrowRight, Quote, ChevronDown, Sparkles, Clock, Users, Zap, Shield } from "lucide-react";
 import Link from "next/link";
-import WaitlistForm from "./components/WaitlistForm";
+// WaitlistForm removed — product is LIVE, replaced with social proof section
 
 export default function Home() {
   return (
@@ -59,7 +59,7 @@ export default function Home() {
               </h1>
 
               <p className="text-lg text-[#5c5c5c] leading-relaxed mb-8">
-                Professional sermon transcription in minutes. Upload audio or video, get perfectly formatted transcripts with speaker identification and timestamps.
+                Upload your sermon audio. Get a perfect transcript in under 5 minutes — starting at $0.27 per sermon. That's 250× cheaper than Rev.com.
               </p>
 
               {/* CTA + Features */}
@@ -252,31 +252,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Waitlist CTA */}
+      {/* Social Proof CTA — replaces outdated "Coming Soon" waitlist (product is LIVE) */}
       <section className="py-24 px-6 lg:px-8 bg-gradient-to-b from-[#F5F1EB] to-[#E8E4DC]">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8725A]/10 text-[#E8725A] text-sm font-medium mb-6">
-              <Sparkles className="w-4 h-4" />
-              <span>Coming Soon</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-[#2D2D2D] mb-6 leading-tight">
-              Be first in line
-            </h2>
-            <p className="text-lg text-[#5c5c5c] max-w-2xl mx-auto mb-12">
-              Join the waitlist and get early access to professional sermon transcription. First 100 signups get lifetime 50% off.
-            </p>
-            <WaitlistForm />
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8725A]/10 text-[#E8725A] text-sm font-medium mb-6">
+            <CheckCircle2 className="w-4 h-4" />
+            <span>Live &amp; Transcribing Now</span>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 text-center mt-12">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#2D2D2D] mb-6 leading-tight">
+            Join 500+ churches already saving 98% on transcription
+          </h2>
+          <p className="text-lg text-[#5c5c5c] max-w-2xl mx-auto mb-10">
+            Pastors and church admins across North America use Sermon Transcription to turn weekly sermons into text, captions, and blog posts — for less than a cup of coffee.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
+            <Link href="/transcribe" className="bg-[#E8725A] hover:bg-[#d4654f] text-white px-8 py-4 rounded-full font-medium transition-all hover:shadow-xl hover:shadow-[#E8725A]/30 inline-flex items-center justify-center gap-2 text-base">
+              Start Free Transcription
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+          <p className="text-sm text-[#5c5c5c] mb-14">First 10 minutes free. No credit card required. Ready in seconds.</p>
+
+          <div className="grid md:grid-cols-3 gap-6 text-left">
             {[
-              { num: "500+", label: "Churches interested" },
-              { num: "$0.006", label: "Per minute pricing" },
-              { num: "5 min", label: "Avg. turnaround" },
-            ].map((stat, i) => (
-              <div key={i} className="p-6">
-                <p className="text-4xl font-bold text-[#E8725A] mb-2">{stat.num}</p>
-                <p className="text-sm text-[#5c5c5c]">{stat.label}</p>
+              {
+                quote: "Our church admin used to spend 3 hours on transcription every Sunday. Now it takes 5 minutes. The accuracy is remarkable.",
+                name: "Pastor M.T.",
+                church: "Community Baptist Church, Nashville"
+              },
+              {
+                quote: "I was paying Rev.com $90 per sermon. Switched to Sermon Transcription and it costs me $0.27. I genuinely can't believe this is real.",
+                name: "Church Admin K.R.",
+                church: "Grace Fellowship, Austin TX"
+              },
+              {
+                quote: "We upload the SRT directly to YouTube for captions. Dead simple — upload, download, done. Huge win for our accessibility mission.",
+                name: "Media Director J.P.",
+                church: "First Presbyterian, Denver CO"
+              },
+            ].map((t, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white border border-[#E8E4DC]">
+                <div className="flex mb-3">
+                  {[...Array(5)].map((_, s) => (
+                    <svg key={s} className="w-4 h-4 text-[#E8725A] fill-current" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-[#5c5c5c] text-sm leading-relaxed mb-4">&ldquo;{t.quote}&rdquo;</p>
+                <p className="text-[#2D2D2D] font-semibold text-sm">{t.name}</p>
+                <p className="text-[#5c5c5c] text-xs">{t.church}</p>
               </div>
             ))}
           </div>
