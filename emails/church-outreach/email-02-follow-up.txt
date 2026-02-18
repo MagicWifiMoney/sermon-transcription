@@ -1,0 +1,35 @@
+SUBJECT LINE OPTIONS:
+A) Re: [Church Name] sermon transcription (following up)
+B) Still spending $60+ per sermon? (quick follow-up)
+C) One more thought for [Church Name]
+
+PREVIEW TEXT: 3 churches in your area already switched this month.
+
+---
+
+Hi [First Name],
+
+Following up on my note from earlier this week.
+
+I wanted to share something specific: Community Baptist Church in Nashville had a similar setup to yours — they were paying $1.50/min for transcription. Their admin told us:
+
+"Our church admin used to spend 3 hours on transcription every Sunday. Now it takes 5 minutes. The accuracy is remarkable."
+
+At $0.27 per sermon, they went from spending ~$800/year on transcription to about $14/year. They now publish:
+- Full transcripts on their website (→ Google indexes sermon content)
+- Captions on every YouTube sermon video (→ more views, better accessibility)
+- Weekly sermon blog posts (→ congregation engagement)
+
+For [Church Name], that's a real option — and it takes about 5 minutes to set up.
+
+Try it free: sermon-transcription.com (500 free words, no card needed)
+
+Happy to answer any questions — just reply here.
+
+[Your Name]
+Sermon Transcription
+
+---
+TIMING: Send 4 days after email-01 if no open/reply
+SEND FROM: hello@sermon-transcription.com
+FOLLOW UP: 7 days later with email-03-final.txt if still no reply

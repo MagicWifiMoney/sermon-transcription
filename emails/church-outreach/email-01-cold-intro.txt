@@ -1,0 +1,47 @@
+SUBJECT LINE OPTIONS (A/B test these):
+A) We cut [Church Name]'s transcription costs by 98% — interested?
+B) How [Church Name] could save $200/month on sermon transcription
+C) Quick question about how you handle sermon transcription
+D) Your sermons deserve to be searchable (for $0.27 each)
+
+PREVIEW TEXT: No $1.50/minute fees. No contract. 500+ churches already switched.
+
+---
+
+Hi [First Name],
+
+I came across [Church Name] while researching churches that are actively posting sermon content online. Your congregation is doing great work making sermons accessible.
+
+Quick question: how are you currently handling transcription for your messages?
+
+Most churches I talk to are either:
+- Paying a service like Rev.com ($1.50/min = ~$67 per sermon) 😬
+- Doing it manually (3+ hours of volunteer time per week)
+- Not transcribing at all (and missing SEO + accessibility benefits)
+
+We built Sermon Transcription specifically for churches. It uses AI to transcribe your sermons for $0.27 each — accurate, fast, and a fraction of what you're paying now.
+
+Here's what you get per sermon:
+✓ Full text transcript (download as .txt, .srt, .docx)
+✓ Captions-ready SRT file for YouTube/Vimeo
+✓ Searchable archive for your congregation
+✓ 500 free words to try it today
+
+No contract, no monthly fee to start. Pay per sermon.
+
+Would it be worth a 5-minute conversation to see if this makes sense for [Church Name]?
+
+If you want to try it right now: sermon-transcription.com (first 500 words free)
+
+Grace and peace,
+[Your Name]
+Sermon Transcription
+sermon-transcription.com
+
+P.S. — For context, we're 250x cheaper than Rev.com. A typical 40-minute sermon costs $0.27 with us vs. $60 with Rev. The math is pretty simple.
+
+---
+SEND FROM: hello@sermon-transcription.com
+SEND TO: [church admin / pastor email from hot leads list]
+TIMING: Monday or Tuesday morning, 8-10am recipient's timezone
+FOLLOW UP: 4 days later with email-02-follow-up.txt if no reply
