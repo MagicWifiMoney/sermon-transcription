@@ -23,3 +23,11 @@ export const metadata: Metadata = {
     canonical: "/cost-calculator",
   },
 };
+
+export default function CostCalculatorLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return children;
+}
