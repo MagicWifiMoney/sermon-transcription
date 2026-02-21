@@ -1,0 +1,19 @@
+# Sermon Transcription — AI-Powered Audio to Text for Churches
+
+> Professional sermon transcription in minutes. Upload audio or video, get perfectly formatted transcripts with speaker identification and timestamps.
+
+## About
+Sermon Transcription uses AI to convert sermon audio and video recordings into clean, searchable, formatted text transcripts. Features include speaker identification, timestamps, and export in multiple formats.
+
+## Key Features
+- [Homepage](https://sermon-transcription.com/) - AI sermon transcription service
+- Automatic speaker identification
+- Timestamp generation
+- Multiple export formats
+- Fast turnaround (minutes, not days)
+
+## Use Cases
+- Churches archiving sermons as text
+- Pastors reviewing and editing messages
+- Ministry teams creating study guides
+- Accessibility for hearing-impaired congregation members
