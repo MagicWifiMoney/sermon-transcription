@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID || '8906550e-cffc-414a-aefe-0fc65eb24752'; // General audience
+const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID || '1e540b46-cdd5-4283-b35d-cc46983adeb2'; // Sermon Transcription waitlist
 
 export async function POST(request: NextRequest) {
   try {
