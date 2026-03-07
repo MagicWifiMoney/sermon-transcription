@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     title: "Sermon Transcription - AI-Powered Audio to Text",
     description: "Professional sermon transcription in minutes. Starting at $0.006/min.",
   },
+  alternates: {
+    canonical: "https://sermon-transcription.com",
+  },
 };
 
 const schemaOrgJSONLD = {
