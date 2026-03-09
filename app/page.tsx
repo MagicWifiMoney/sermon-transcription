@@ -546,6 +546,59 @@ export default function Home() {
         </div>
       </footer>
 
+      {/* FAQPage Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What audio formats do you support?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We support all major audio and video formats: MP3, MP4, WAV, M4A, MOV, AAC, FLAC, OGG, and more. If you can play it, we can transcribe it."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How accurate is the transcription?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Standard tier (Whisper) achieves 99% accuracy on clear audio. Premium tier (ElevenLabs) reaches 99.5% with better handling of accents, background noise, and multiple speakers."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What's the difference between Standard and Premium?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Standard uses OpenAI Whisper for fast, accurate transcription. Premium uses ElevenLabs Audio Intelligence for speaker identification (diarization), entity detection, and slightly higher accuracy."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How long does processing take?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Most sermons process in under 5 minutes. A 45-minute sermon typically takes 3-4 minutes to transcribe."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What output formats do you provide?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "All transcripts are available in TXT (plain text), SRT (subtitles), and VTT (web captions) formats. Premium tier also includes JSON with detailed metadata."
+                }
+              }
+            ]
+          })
+        }}
+      />
+
       {/* Floating animations CSS */}
       <style jsx>{`
         @keyframes float {

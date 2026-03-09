@@ -34,6 +34,30 @@ export const metadata: Metadata = {
   },
 };
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Sermon Transcription",
+  "url": "https://sermon-transcription.com",
+  "description": "AI-powered sermon transcription for churches. Starting at $0.006/min.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://sermon-transcription.com/blog?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Sermon Transcription",
+  "url": "https://sermon-transcription.com",
+  "logo": "https://sermon-transcription.com/favicon.ico",
+  "email": "hello@sermon-transcription.com",
+  "description": "AI-powered sermon transcription service for churches. Professional quality at 250x lower cost than competitors.",
+  "sameAs": []
+};
+
 const schemaOrgJSONLD = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -84,6 +108,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <Script
+          id="schema-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+          strategy="beforeInteractive"
+        />
+        <Script
+          id="schema-organization"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          strategy="beforeInteractive"
+        />
         <Script
           id="schema-org"
           type="application/ld+json"
