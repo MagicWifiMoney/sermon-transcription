@@ -93,6 +93,26 @@ export async function POST(request: NextRequest) {
       `,
     });
 
+
+  // Discord notification (fire-and-forget)
+  const _dw = process.env.DISCORD_WEBHOOK_URL;
+  if (_dw) {
+    fetch(_dw, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        embeds: [{
+          title: '📝 New Sermon Transcription Signup',
+          color: 5793266,
+          fields: [
+            { name: 'Email', value: email.replace(/(.{2}).*(@.*)/, '***$2'), inline: true },
+            { name: 'Name', value: name || '—', inline: true },
+          ],
+          footer: { text: new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }) + ' CT' }
+        }]
+      }),
+    }).catch(() => {});
+  }
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Waitlist error:', error);
