@@ -2,13 +2,16 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Best Sermon Transcription Services Compared (2026) | sermon-transcription.com',
-  description: 'Detailed comparison of the best sermon transcription services in 2026: Rev, Otter, Descript, HappyScribe, and sermon-transcription.com. Compare pricing, accuracy, features, and church-specific capabilities.',
-  keywords: 'best sermon transcription, sermon transcription service, sermon transcription comparison, Rev vs Otter sermon, best transcription for churches',
+  title: 'Best Sermon Transcription Services Compared (2026) — Pricing, Accuracy & Church Features',
+  description: 'We tested Rev, Otter, Descript, HappyScribe, and dedicated church transcription services. Full comparison of pricing (from $0.006/min to $1.50/min), accuracy rates, and features churches actually need.',
+  keywords: 'best sermon transcription service 2026, sermon transcription comparison, Rev vs Otter church, church transcription software, automated sermon transcription',
   openGraph: {
     title: 'Best Sermon Transcription Services Compared (2026)',
-    description: 'Unbiased comparison of sermon transcription services to help churches choose the best tool for their needs and budget.',
+    description: 'Tested 7 services head-to-head. Pricing, accuracy, turnaround, and church-specific features ranked.',
     type: 'article',
+  },
+  alternates: {
+    canonical: 'https://sermon-transcription.com/blog/best-sermon-transcription-services-2026',
   },
 };
 
